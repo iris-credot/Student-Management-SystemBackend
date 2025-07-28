@@ -39,7 +39,6 @@ This is a Node.js and Express-based backend API for managing users and students.
 │ └── sendMails.js
 ├── Models/
 │ ├── User.js
-│
 ├── Routes/
 │ ├── authRoute.js
 │ ├── studentRoute.js
@@ -54,7 +53,7 @@ This is a Node.js and Express-based backend API for managing users and students.
 
 ### 1. Clone the Repository
 
-```bash
+
 git clone https://github.com/iris-credot/Student-Management-SystemBackend.git
 cd Student-Management-SystemBackend
 
@@ -67,13 +66,17 @@ PORT=4000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret_key
 
+---
 
 4. Start the Server
 npm start
 
+---
 
 📡 API Endpoints
- Auth Routes (/api/auth)
+
+Auth Routes (/api/auth)
+
 POST /register – Register a new user
 
 POST /login – Login and receive token
@@ -81,6 +84,7 @@ POST /login – Login and receive token
 POST /logout – Logout user
 
 👤 User Routes (/api/users)
+
 GET /me – Get logged-in user profile
 
 PUT /me – Update own profile
@@ -88,6 +92,7 @@ PUT /me – Update own profile
 PUT /role/:id – Admin only: Update user role
 
 🎓 Student Routes (/api/students)
+
 GET / – Admin only: Get all students
 
 GET /:id – Admin only: Get single student
@@ -98,19 +103,23 @@ PUT /:id – Admin only: Update student
 
 DELETE /:id – Admin only: Delete student
 
+---
+
 🔒 Role-Based Access
 Endpoint	Access
 /api/auth/*	Public
 /api/users/me	Authenticated Users
 /api/students/*	Admin Only
+---
 
 🧪 Testing (Recommended Tools)
 Postman
 
 Thunder Client (VS Code)
+---
 
 📝 License
 MIT
-
+---
 👤 Author
 Iris Credot Teta – tetairiscredot@gmail.com
