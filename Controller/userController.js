@@ -73,9 +73,9 @@ const userController ={
  
   // Prepare email body
   const emailBody = `
-    Welcome to Student-Management-System!
+    Welcome to EduTrack!
 
-    Your One Time Password (OTP) for account verification is: ${otp}
+    Your OTP verification is: ${otp}
 
     This OTP is valid for 5 minutes.
 
@@ -87,7 +87,7 @@ const userController ={
 
   try {
     // Send OTP email
-    await sendEmail(emaill, 'Student-Managemt System: Verify your account', emailBody);
+    await sendEmail(emaill, 'EduTrack:Verify your account', emailBody);
     console.log('Verification email sent successfully');
   } catch (emailError) {
     console.error('Failed to send verification email:', emailError.message);
