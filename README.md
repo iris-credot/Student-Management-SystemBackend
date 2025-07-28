@@ -47,7 +47,7 @@ This is a Node.js and Express-based backend API for managing users and students.
 ├── index.js
 └── package.json
 
----
+
 
 ## ⚙️ Setup Instructions
 
@@ -66,12 +66,12 @@ PORT=4000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret_key
 
----
+
 
 4. Start the Server
 npm start
 
----
+
 
 📡 API Endpoints
 
@@ -103,23 +103,23 @@ PUT /:id – Admin only: Update student
 
 DELETE /:id – Admin only: Delete student
 
----
+
 
 🔒 Role-Based Access
 Endpoint	Access
 /api/auth/*	Public
 /api/users/me	Authenticated Users
 /api/students/*	Admin Only
----
+
 
 🧪 Testing (Recommended Tools)
 Postman
 
 Thunder Client (VS Code)
----
+
 
 📝 License
 MIT
----
+
 👤 Author
 Iris Credot Teta – tetairiscredot@gmail.com
