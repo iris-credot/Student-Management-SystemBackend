@@ -11,8 +11,7 @@ exports.getStudentById = asyncWrapper(async (req, res) => {
   const student = await User.findOne({ _id: req.params.id, role: 'student' });
   if (!student) {
     return res.status(404).json({ error: 'Student not found' });
-  }
-  res.status(200).json(student);
+  }  res.status(200).json(student);
 });
 
 exports.createStudent = asyncWrapper(async (req, res) => {
