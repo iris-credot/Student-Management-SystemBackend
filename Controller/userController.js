@@ -82,7 +82,7 @@ const userController ={
     If you did not request this, please ignore this email.
 
     Best regards,
-    Student-Management Team
+    EduTrack Team
   `;
 
   try {
