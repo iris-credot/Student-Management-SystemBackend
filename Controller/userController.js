@@ -187,10 +187,10 @@ const userController ={
           expirationDate: new Date(Date.now() + 5 * 60 * 1000),
       });
   
-      const link = `reset/${token}/${foundUser.id}`;
+      const link = `http://localhost:3000/resetPassword`;
       const emailBody = `Click on the link bellow to reset your password\n\n${link}`;
-  
-      await sendEmail(req.body.email, "Reset your password", emailBody);
+         
+      await sendEmail(req.body.email, "EduTrack-Reset password", emailBody);
       
   
       res.status(200).json({
