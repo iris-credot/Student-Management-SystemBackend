@@ -211,7 +211,7 @@ const userController ={
     return res.status(400).json({ message: "Invalid or expired token" });
   }
 
-  const user = await userModel.findById(decoded.userId);
+  const user = await userModel.findById(decoded.id);
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
