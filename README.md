@@ -32,18 +32,26 @@ Link– [Swagger_Documentation](https://student-management-systembackend.onrende
 ## 🗂️ Folder Structure
 
 ├── Controllers/
+
 │ ├── authController.js
 │ ├── studentController.js
 │ └── userController.js
+
 ├── Middleware/
+
 │ ├── Authenticator.js
 │ └── sendMails.js
+
 ├── Models/
+
 │ ├── User.js
+
 ├── Routes/
+
 │ ├── authRoute.js
 │ ├── studentRoute.js
 │ └── userRoute.js
+
 ├── .env
 ├── index.js
 └── package.json
