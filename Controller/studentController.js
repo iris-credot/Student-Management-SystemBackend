@@ -48,3 +48,31 @@ exports.deleteStudent =asyncWrapper(async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
+
+exports.getGraduatedStudents = asyncWrapper(async (req, res) => {
+  try {
+    const graduatedStudents = await User.find({ role: 'student', status: 'Graduated' });
+    res.status(200).json(graduatedStudents);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+exports.getActiveStudents = asyncWrapper(async (req, res) => {
+  try {
+    const activeStudents = await User.find({ role: 'student', status: 'Active' });
+    res.status(200).json(activeStudents);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+exports.getDroppedStudents = asyncWrapper(async (req, res) => {
+  try {
+    const droppedStudents = await User.find({ role: 'student', status: 'Dropped' });
+    res.status(200).json(droppedStudents);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
