@@ -56,15 +56,21 @@ Link– [Swagger_Documentation](https://student-management-systembackend.onrende
 
 
 git clone https://github.com/iris-credot/Student-Management-SystemBackend.git
+
 cd Student-Management-SystemBackend
 
 ### 2. Install Dependencies
+
 npm install
 
 ### 3. Create a .env File
+
 Create a .env file in the root directory and add the following variables:
+
 PORT=4000
+
 MONGO_URI=your_mongodb_connection_string
+
 JWT_SECRET=your_jwt_secret_key
 
 
@@ -107,10 +113,13 @@ DELETE /:id – Admin only: Delete student
 
 
 ## 🔒 Role-Based Access
-Endpoint	Access
-/api/auth/*	Public
-/api/users/me	Authenticated Users
-/api/students/*	Admin Only
+Endpoint	      Access
+
+/api/auth/* 	  Public
+
+/api/users/me	  Authenticated Users
+
+/api/students/*	  Admin Only
 
 
 ## 🧪 Testing (Recommended Tools)
