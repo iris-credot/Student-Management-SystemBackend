@@ -7,7 +7,7 @@ const upload = multer({ dest: 'uploads/' });
 
 router.post('/register',upload.single('image'), userController.createUser);
 router.get('/me/:id', auth.AuthJWT, userController.getUserById);
-router.put('/me/:id', auth.AuthJWT,upload.single('image'), userController.updateMe);
+router.put('/me/:id', auth.AuthJWT,upload.single('image'), userController.updateUser);
 router.put('/change-role/:id', auth.adminJWT, userController.changeRole);
 router.post('/forgot', userController.ForgotPassword);
 router.post('/verifyotp', userController.OTP);
