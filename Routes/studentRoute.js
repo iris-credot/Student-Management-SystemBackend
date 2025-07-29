@@ -12,7 +12,7 @@ router.post('/',auth.adminJWT, studentController.createStudent);
 router.get('/',auth.adminJWT, studentController.getAllStudents);
 router.get('/one/:id',auth.adminJWT, studentController.getStudentById);
 
-router.put('/:id',auth.adminJWT,upload.single('image'), studentController.updateStudent);
+router.put('/:id',auth.adminJWT,upload.single('image'), studentController.updateUser);
 router.delete('/:id',auth.adminJWT, studentController.deleteStudent);
 
 module.exports = router;
