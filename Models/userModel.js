@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
 
   // Student-specific fields
   course: { type: String }, 
-  enrollmentYear: { type: string }, 
+  enrollmentYear: { type: Number }, 
   status: {
     type: String,
     enum: ['Active', 'Graduated', 'Dropped'],
