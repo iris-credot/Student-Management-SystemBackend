@@ -1,10 +1,13 @@
 const User = require('../Models/userModel');
 const asyncWrapper = require('../Middleware/async');
 const Badrequest=require('../Error/BadRequest');
-
+const cloudinary =require('cloudinary');
 const Notfound=require('../Error/NotFound');
-
-const UnauthorizedError =require('../Error/Unauthorised');
+cloudinary.v2.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET
+  });
 
 exports.getAllStudents = asyncWrapper(async (req, res) => {
   const students = await User.find({ role: 'student' });
@@ -23,35 +26,48 @@ exports.createStudent = asyncWrapper(async (req, res) => {
   res.status(201).json(newStudent);
 });
 
-exports.updateUser = asyncWrapper(async (req, res, next) => {
+exports.updateUser= asyncWrapper(async (req, res, next) => {
     const { id } = req.params;
+    // Spread req.body into updateData to create a mutable copy
     const updateData = { ...req.body };
 
+    // Check if a file is included in the request for upload
     if (req.file) {
-      try {
-        const result = await cloudinary.v2.uploader.upload(req.file.path, {
-          folder: 'EduTrack',
-          public_id: `PROFILE_${id}_${Date.now()}`
-        });
-        updateData.image = result.secure_url;
-      } catch (err) {
-        console.error('Error uploading image to Cloudinary during update:', err);
-        // --- FIX 1: Use the imported error class ---
-        return next(new Badrequest('Error uploading new profile image.'));
-      }
+        try {
+            const images = `IMAGE_${Date.now()}`;
+            const ImageCloudinary = await cloudinary.v2.uploader.upload(req.file.path, {
+                folder: 'EduTrack', // Your specified Cloudinary folder
+                public_id: images
+            });
+
+            // --- FIX: Assign the returned URL to the 'image' field in updateData ---
+            updateData.image = ImageCloudinary.secure_url;
+
+        } catch (err) {
+            // Log the detailed error and return a user-friendly message
+            console.error('Error uploading image to Cloudinary:', err);
+            return next(new Badrequest('Error uploading image. Please try again.'));
+        }
     }
 
-    const updatedUser = await User.findByIdAndUpdate(id, updateData, {
-      new: true,
-      runValidators: true
-    });
+    // Now, updateData contains both text fields from req.body and the new image URL
+    const updatedUser = await User.findByIdAndUpdate(
+        id,
+        updateData, // The object now contains the image URL if uploaded
+        {
+            new: true, // Return the updated document
+            runValidators: true // Ensure schema validations are run on update
+        }
+    );
 
     if (!updatedUser) {
-      // --- FIX 2: Use the imported error class ---
-      return next(new Notfound(`User not found`));
+        return next(new Notfound(`User not found with id: ${id}`));
     }
 
-    res.status(200).json({ message: 'User updated successfully', user: updatedUser });
+    res.status(200).json({ 
+        message: 'User updated successfully', 
+        user: updatedUser 
+    });
 });
 
 exports.deleteStudent = asyncWrapper(async (req, res) => {
