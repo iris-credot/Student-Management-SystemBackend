@@ -1,6 +1,10 @@
 const User = require('../Models/userModel');
 const asyncWrapper = require('../Middleware/async');
+const Badrequest=require('../Error/BadRequest');
 
+const Notfound=require('../Error/NotFound');
+
+const UnauthorizedError =require('../Error/Unauthorised');
 
 exports.getAllStudents = asyncWrapper(async (req, res) => {
   const students = await User.find({ role: 'student' });
@@ -19,43 +23,36 @@ exports.createStudent = asyncWrapper(async (req, res) => {
   res.status(201).json(newStudent);
 });
 
-exports.updateUser= asyncWrapper(async (req, res, next) => {
+exports.updateUser = asyncWrapper(async (req, res, next) => {
     const { id } = req.params;
     const updateData = { ...req.body };
 
-    // 1. Check if a new file was uploaded via multer.
     if (req.file) {
       try {
-        // 2. If yes, upload this new file to Cloudinary.
         const result = await cloudinary.v2.uploader.upload(req.file.path, {
-          folder: 'Bistrou-Pulse', // Or your desired folder
-          public_id: `PROFILE_${id}_${Date.now()}` // A unique public_id
+          folder: 'EduTrack',
+          public_id: `PROFILE_${id}_${Date.now()}`
         });
-
-        // 3. IMPORTANT: Add the secure public URL from Cloudinary to our update data.
         updateData.image = result.secure_url;
-
       } catch (err) {
         console.error('Error uploading image to Cloudinary during update:', err);
+        // --- FIX 1: Use the imported error class ---
         return next(new Badrequest('Error uploading new profile image.'));
       }
     }
 
-    // 4. Find the user and update them with all the data 
-    //    (text fields and potentially the new Cloudinary image URL).
     const updatedUser = await User.findByIdAndUpdate(id, updateData, {
-      new: true, // Return the modified document
-      runValidators: true // Run schema validators
+      new: true,
+      runValidators: true
     });
 
     if (!updatedUser) {
+      // --- FIX 2: Use the imported error class ---
       return next(new Notfound(`User not found`));
     }
 
-    // 5. Send the fully updated user object back to the frontend.
     res.status(200).json({ message: 'User updated successfully', user: updatedUser });
 });
-
 
 exports.deleteStudent = asyncWrapper(async (req, res) => {
   await User.findByIdAndDelete(req.params.id);
