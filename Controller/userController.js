@@ -246,7 +246,7 @@ updateUser: asyncWrapper(async (req, res, next) => {
 }),
     updatePassword : asyncWrapper(async (req, res, next) => {
  
-  const { userId } = req.user; 
+ const { userId } = req;
   const { currentPassword, newPassword } = req.body;
 
   if (!currentPassword || !newPassword) {
