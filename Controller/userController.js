@@ -206,7 +206,7 @@ updateUser: asyncWrapper(async (req, res, next) => {
           expirationDate: new Date(Date.now() + 5 * 60 * 1000),
       });
   
-      const link = `http://localhost:3000/resetPassword/${token}`;
+      const link = `https://student-management-frontend-umber.vercel.app/resetPassword/${token}`;
       const emailBody = `Click on the link bellow to reset your password\n\n${link}`;
          
       await sendEmail(req.body.email, "EduTrack-Reset password", emailBody);
